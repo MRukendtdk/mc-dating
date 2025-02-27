@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opret Profil</title>
+    <title>Log Ind</title>
 </head>
 <body>
 
-    <h2>Opret en bruger</h2>
-    <form id="signup-form">
-        <input type="email" id="email" placeholder="Indtast e-mail" required>
-        <input type="password" id="password" placeholder="Vælg kodeord" required>
-        <button type="submit">Opret konto</button>
+    <h2>Log ind</h2>
+    <form id="login-form">
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="password" id="password" placeholder="Kodeord" required>
+        <button type="submit">Log Ind</button>
     </form>
 
     <p id="message"></p>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "DIN-API-KEY",
@@ -32,18 +32,18 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        document.getElementById("signup-form").addEventListener("submit", function(event) {
+        document.getElementById("login-form").addEventListener("submit", function(event) {
             event.preventDefault();
             
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const message = document.getElementById("message");
 
-            createUserWithEmailAndPassword(auth, email, password)
+            signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    message.textContent = "✅ Bruger oprettet! Omdirigerer til login...";
+                    message.textContent = "✅ Logget ind! Omdirigerer til forsiden...";
                     setTimeout(() => {
-                        window.location.href = "login.html"; 
+                        window.location.href = "index.html"; 
                     }, 2000);
                 })
                 .catch((error) => {
